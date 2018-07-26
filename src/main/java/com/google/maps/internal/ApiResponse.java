@@ -19,9 +19,9 @@ import com.google.maps.errors.ApiException;
 
 /** All Geo API responses implement this Interface. */
 public interface ApiResponse<T> {
-  boolean successful();
+	boolean successful();
 
-  T getResult();
+	T getResult();
 
-  ApiException getError();
+	ApiException getError();
 }

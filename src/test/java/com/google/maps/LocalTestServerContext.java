@@ -36,108 +36,100 @@ import org.json.JSONObject;
 /** Local test mock server for unit tests. */
 public class LocalTestServerContext implements AutoCloseable {
 
-  private final MockWebServer server;
-  public final GeoApiContext context;
-  private RecordedRequest request = null;
-  private List<NameValuePair> params = null;
+	private final MockWebServer server;
+	public final GeoApiContext context;
+	private RecordedRequest request = null;
+	private List<NameValuePair> params = null;
 
-  LocalTestServerContext(BufferedImage image) throws IOException {
-    this.server = new MockWebServer();
-    Buffer buffer = new Buffer();
-    ImageIO.write(image, "png", buffer.outputStream());
-    MockResponse response = new MockResponse();
-    response.setHeader("Content-Type", "image/png");
-    response.setBody(buffer);
-    server.enqueue(response);
-    server.start();
+	LocalTestServerContext(BufferedImage image) throws IOException {
+		this.server = new MockWebServer();
+		Buffer buffer = new Buffer();
+		ImageIO.write(image, "png", buffer.outputStream());
+		MockResponse response = new MockResponse();
+		response.setHeader("Content-Type", "image/png");
+		response.setBody(buffer);
+		server.enqueue(response);
+		server.start();
 
-    this.context =
-        new GeoApiContext.Builder()
-            .apiKey("AIzaFakeKey")
-            .baseUrlForTesting("http://127.0.0.1:" + server.getPort())
-            .build();
-  }
+		this.context = new GeoApiContext.Builder().apiKey("AIzaFakeKey")
+				.baseUrlForTesting("http://127.0.0.1:" + server.getPort()).build();
+	}
 
-  LocalTestServerContext(String responseBody) throws IOException {
-    this.server = new MockWebServer();
-    MockResponse response = new MockResponse();
-    response.setHeader("Content-Type", "application/json");
-    response.setBody(responseBody);
-    server.enqueue(response);
-    server.start();
+	LocalTestServerContext(String responseBody) throws IOException {
+		this.server = new MockWebServer();
+		MockResponse response = new MockResponse();
+		response.setHeader("Content-Type", "application/json");
+		response.setBody(responseBody);
+		server.enqueue(response);
+		server.start();
 
-    this.context =
-        new GeoApiContext.Builder()
-            .apiKey("AIzaFakeKey")
-            .baseUrlForTesting("http://127.0.0.1:" + server.getPort())
-            .build();
-  }
+		this.context = new GeoApiContext.Builder().apiKey("AIzaFakeKey")
+				.baseUrlForTesting("http://127.0.0.1:" + server.getPort()).build();
+	}
 
-  private List<NameValuePair> parseQueryParamsFromRequestLine(String requestLine)
-      throws URISyntaxException {
-    // Extract the URL part from the HTTP request line
-    String[] chunks = requestLine.split("\\s");
-    String url = chunks[1];
+	private List<NameValuePair> parseQueryParamsFromRequestLine(String requestLine) throws URISyntaxException {
+		// Extract the URL part from the HTTP request line
+		String[] chunks = requestLine.split("\\s");
+		String url = chunks[1];
 
-    return URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
-  }
+		return URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
+	}
 
-  private void takeRequest() throws InterruptedException {
-    if (this.request == null) this.request = server.takeRequest();
-  }
+	private void takeRequest() throws InterruptedException {
+		if (this.request == null)
+			this.request = server.takeRequest();
+	}
 
-  public JSONObject requestBody() throws InterruptedException {
-    this.takeRequest();
+	public JSONObject requestBody() throws InterruptedException {
+		this.takeRequest();
 
-    return new JSONObject(request.getBody().readUtf8());
-  }
+		return new JSONObject(request.getBody().readUtf8());
+	}
 
-  private List<NameValuePair> actualParams() throws InterruptedException, URISyntaxException {
-    this.takeRequest();
-    return parseQueryParamsFromRequestLine(request.getRequestLine());
-  }
+	private List<NameValuePair> actualParams() throws InterruptedException, URISyntaxException {
+		this.takeRequest();
+		return parseQueryParamsFromRequestLine(request.getRequestLine());
+	}
 
-  public String path() throws InterruptedException {
-    this.takeRequest();
-    return request.getPath().split("\\?")[0];
-  }
+	public String path() throws InterruptedException {
+		this.takeRequest();
+		return request.getPath().split("\\?")[0];
+	}
 
-  void assertParamValue(String expected, String paramName)
-      throws URISyntaxException, InterruptedException {
-    if (this.params == null) {
-      this.params = this.actualParams();
-    }
-    boolean paramFound = false;
-    for (NameValuePair pair : params) {
-      if (pair.getName().equals(paramName)) {
-        paramFound = true;
-        assertEquals(expected, pair.getValue());
-      }
-    }
-    assertTrue(paramFound);
-  }
+	void assertParamValue(String expected, String paramName) throws URISyntaxException, InterruptedException {
+		if (this.params == null) {
+			this.params = this.actualParams();
+		}
+		boolean paramFound = false;
+		for (NameValuePair pair : params) {
+			if (pair.getName().equals(paramName)) {
+				paramFound = true;
+				assertEquals(expected, pair.getValue());
+			}
+		}
+		assertTrue(paramFound);
+	}
 
-  void assertParamValues(List<String> expecteds, String paramName)
-      throws URISyntaxException, InterruptedException {
-    if (this.params == null) {
-      this.params = this.actualParams();
-    }
-    int paramsFound = 0;
-    for (NameValuePair pair : params) {
-      if (pair.getName().equals(paramName)) {
-        assertEquals(expecteds.get(paramsFound), pair.getValue());
-        paramsFound++;
-      }
-    }
-    assertEquals(paramsFound, expecteds.size());
-  }
+	void assertParamValues(List<String> expecteds, String paramName) throws URISyntaxException, InterruptedException {
+		if (this.params == null) {
+			this.params = this.actualParams();
+		}
+		int paramsFound = 0;
+		for (NameValuePair pair : params) {
+			if (pair.getName().equals(paramName)) {
+				assertEquals(expecteds.get(paramsFound), pair.getValue());
+				paramsFound++;
+			}
+		}
+		assertEquals(paramsFound, expecteds.size());
+	}
 
-  @Override
-  public void close() {
-    try {
-      server.shutdown();
-    } catch (IOException e) {
-      System.err.println("Failed to close server: " + e);
-    }
-  }
+	@Override
+	public void close() {
+		try {
+			server.shutdown();
+		} catch (IOException e) {
+			System.err.println("Failed to close server: " + e);
+		}
+	}
 }

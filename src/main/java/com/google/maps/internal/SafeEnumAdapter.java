@@ -25,44 +25,50 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A {@link com.google.gson.TypeAdapter} that maps case-insensitive values to an enum type. If the
- * value is not found, an UNKNOWN value is returned, and logged. This allows the server to return
- * values this client doesn't yet know about.
+ * A {@link com.google.gson.TypeAdapter} that maps case-insensitive values to an
+ * enum type. If the value is not found, an UNKNOWN value is returned, and
+ * logged. This allows the server to return values this client doesn't yet know
+ * about.
  *
- * @param <E> the enum type to map values to.
+ * @param <E>
+ *            the enum type to map values to.
  */
 public class SafeEnumAdapter<E extends Enum<E>> extends TypeAdapter<E> {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SafeEnumAdapter.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(SafeEnumAdapter.class.getName());
 
-  private final Class<E> clazz;
-  private final E unknownValue;
+	private final Class<E> clazz;
+	private final E unknownValue;
 
-  /** @param unknownValue the value to return if the value cannot be found. */
-  public SafeEnumAdapter(E unknownValue) {
-    if (unknownValue == null) throw new IllegalArgumentException();
+	/**
+	 * @param unknownValue
+	 *            the value to return if the value cannot be found.
+	 */
+	public SafeEnumAdapter(E unknownValue) {
+		if (unknownValue == null)
+			throw new IllegalArgumentException();
 
-    this.unknownValue = unknownValue;
-    this.clazz = unknownValue.getDeclaringClass();
-  }
+		this.unknownValue = unknownValue;
+		this.clazz = unknownValue.getDeclaringClass();
+	}
 
-  @Override
-  public void write(JsonWriter out, E value) throws IOException {
-    throw new UnsupportedOperationException("Unimplemented method");
-  }
+	@Override
+	public void write(JsonWriter out, E value) throws IOException {
+		throw new UnsupportedOperationException("Unimplemented method");
+	}
 
-  @Override
-  public E read(JsonReader reader) throws IOException {
-    if (reader.peek() == JsonToken.NULL) {
-      reader.nextNull();
-      return null;
-    }
-    String value = reader.nextString();
-    try {
-      return Enum.valueOf(clazz, value.toUpperCase(Locale.ENGLISH));
-    } catch (IllegalArgumentException iae) {
-      LOG.warn("Unknown type for enum {}: '{}'", clazz.getName(), value);
-      return unknownValue;
-    }
-  }
+	@Override
+	public E read(JsonReader reader) throws IOException {
+		if (reader.peek() == JsonToken.NULL) {
+			reader.nextNull();
+			return null;
+		}
+		String value = reader.nextString();
+		try {
+			return Enum.valueOf(clazz, value.toUpperCase(Locale.ENGLISH));
+		} catch (IllegalArgumentException iae) {
+			LOG.warn("Unknown type for enum {}: '{}'", clazz.getName(), value);
+			return unknownValue;
+		}
+	}
 }

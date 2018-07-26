@@ -33,20 +33,22 @@ import java.util.Locale;
 /**
  * Methods factored out so that they can be emulated differently in GWT.
  *
- * <p>This is a minimal port of Google Guava's com.google.common.base.Platform, sufficient to
- * implement the ratelimiter classes.
+ * <p>
+ * This is a minimal port of Google Guava's com.google.common.base.Platform,
+ * sufficient to implement the ratelimiter classes.
  *
  * @author Jesse Wilson
  */
 final class Platform {
-  private Platform() {}
+	private Platform() {
+	}
 
-  /** Calls {@link System#nanoTime()}. */
-  static long systemNanoTime() {
-    return System.nanoTime();
-  }
+	/** Calls {@link System#nanoTime()}. */
+	static long systemNanoTime() {
+		return System.nanoTime();
+	}
 
-  static String formatCompact4Digits(double value) {
-    return String.format(Locale.ROOT, "%.4g", value);
-  }
+	static String formatCompact4Digits(double value) {
+		return String.format(Locale.ROOT, "%.4g", value);
+	}
 }

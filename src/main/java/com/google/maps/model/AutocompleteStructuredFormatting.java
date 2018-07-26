@@ -18,28 +18,31 @@ package com.google.maps.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
-/** The structured formatting info for a {@link com.google.maps.model.AutocompletePrediction}. */
+/**
+ * The structured formatting info for a
+ * {@link com.google.maps.model.AutocompletePrediction}.
+ */
 public class AutocompleteStructuredFormatting implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /** The main text of a prediction, usually the name of the place. */
-  public String mainText;
+	/** The main text of a prediction, usually the name of the place. */
+	public String mainText;
 
-  /** Where the query matched the returned main text. */
-  public AutocompletePrediction.MatchedSubstring mainTextMatchedSubstrings[];
+	/** Where the query matched the returned main text. */
+	public AutocompletePrediction.MatchedSubstring mainTextMatchedSubstrings[];
 
-  /** The secondary text of a prediction, usually the location of the place. */
-  public String secondaryText;
+	/** The secondary text of a prediction, usually the location of the place. */
+	public String secondaryText;
 
-  public String toString() {
-    StringBuilder sb = new StringBuilder("(");
-    sb.append("\"").append(mainText).append("\"");
-    sb.append(" at ").append(Arrays.toString(mainTextMatchedSubstrings));
-    if (secondaryText != null) {
-      sb.append(", secondaryText=\"").append(secondaryText).append("\"");
-    }
-    sb.append(")");
-    return sb.toString();
-  }
+	public String toString() {
+		StringBuilder sb = new StringBuilder("(");
+		sb.append("\"").append(mainText).append("\"");
+		sb.append(" at ").append(Arrays.toString(mainTextMatchedSubstrings));
+		if (secondaryText != null) {
+			sb.append(", secondaryText=\"").append(secondaryText).append("\"");
+		}
+		sb.append(")");
+		return sb.toString();
+	}
 }

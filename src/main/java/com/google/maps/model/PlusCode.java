@@ -17,19 +17,21 @@ package com.google.maps.model;
 
 /** A Plus Code encoded location reference. */
 public class PlusCode {
-  /** The global Plus Code identifier. */
-  public String globalCode;
+	/** The global Plus Code identifier. */
+	public String globalCode;
 
-  /** The compound Plus Code identifier. May be null for locations in remote areas. */
-  public String compoundCode;
+	/**
+	 * The compound Plus Code identifier. May be null for locations in remote areas.
+	 */
+	public String compoundCode;
 
-  public String toString() {
-    StringBuilder sb = new StringBuilder("[PlusCode: ");
-    sb.append(globalCode);
-    if (compoundCode != null) {
-      sb.append(", compoundCode=").append(compoundCode);
-    }
-    sb.append("]");
-    return sb.toString();
-  }
+	public String toString() {
+		StringBuilder sb = new StringBuilder("[PlusCode: ");
+		sb.append(globalCode);
+		if (compoundCode != null) {
+			sb.append(", compoundCode=").append(compoundCode);
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 }

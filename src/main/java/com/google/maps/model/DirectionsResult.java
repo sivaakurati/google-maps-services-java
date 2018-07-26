@@ -18,26 +18,30 @@ package com.google.maps.model;
 import java.io.Serializable;
 
 /**
- * DirectionsResult represents a result from the Google Directions API Web Service.
+ * DirectionsResult represents a result from the Google Directions API Web
+ * Service.
  *
- * <p>Please see <a href="https://developers.google.com/maps/documentation/directions/intro">
+ * <p>
+ * Please see
+ * <a href="https://developers.google.com/maps/documentation/directions/intro">
  * Directions API</a> for more detail.
  */
 public class DirectionsResult implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Details about the geocoding of origin, destination, and waypoints. See <a
-   * href="https://developers.google.com/maps/documentation/directions/intro#GeocodedWaypoints">
-   * Geocoded Waypoints</a> for more detail.
-   */
-  public GeocodedWaypoint geocodedWaypoints[];
+	/**
+	 * Details about the geocoding of origin, destination, and waypoints. See
+	 * <a href=
+	 * "https://developers.google.com/maps/documentation/directions/intro#GeocodedWaypoints">
+	 * Geocoded Waypoints</a> for more detail.
+	 */
+	public GeocodedWaypoint geocodedWaypoints[];
 
-  /**
-   * Routes from the origin to the destination. See <a
-   * href="https://developers.google.com/maps/documentation/directions/intro#Routes">Routes</a> for
-   * more detail.
-   */
-  public DirectionsRoute routes[];
+	/**
+	 * Routes from the origin to the destination. See <a href=
+	 * "https://developers.google.com/maps/documentation/directions/intro#Routes">Routes</a>
+	 * for more detail.
+	 */
+	public DirectionsRoute routes[];
 }

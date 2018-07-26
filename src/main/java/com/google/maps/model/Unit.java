@@ -20,16 +20,15 @@ import java.util.Locale;
 
 /** Units of measurement. */
 public enum Unit implements UrlValue {
-  METRIC,
-  IMPERIAL;
+	METRIC, IMPERIAL;
 
-  @Override
-  public String toString() {
-    return toUrlValue();
-  }
+	@Override
+	public String toString() {
+		return toUrlValue();
+	}
 
-  @Override
-  public String toUrlValue() {
-    return name().toLowerCase(Locale.ENGLISH);
-  }
+	@Override
+	public String toUrlValue() {
+		return name().toLowerCase(Locale.ENGLISH);
+	}
 }

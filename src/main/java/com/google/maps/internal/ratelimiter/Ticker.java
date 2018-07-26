@@ -29,31 +29,36 @@
 package com.google.maps.internal.ratelimiter;
 
 /**
- * A time source; returns a time value representing the number of nanoseconds elapsed since some
- * fixed but arbitrary point in time. Note that most users should use {@link Stopwatch} instead of
- * interacting with this class directly.
+ * A time source; returns a time value representing the number of nanoseconds
+ * elapsed since some fixed but arbitrary point in time. Note that most users
+ * should use {@link Stopwatch} instead of interacting with this class directly.
  *
- * <p><b>Warning:</b> this interface can only be used to measure elapsed time, not wall time.
+ * <p>
+ * <b>Warning:</b> this interface can only be used to measure elapsed time, not
+ * wall time.
  *
  * @author Kevin Bourrillion
  */
 public abstract class Ticker {
-  /** Constructor for use by subclasses. */
-  protected Ticker() {}
+	/** Constructor for use by subclasses. */
+	protected Ticker() {
+	}
 
-  /** Returns the number of nanoseconds elapsed since this ticker's fixed point of reference. */
-  public abstract long read();
+	/**
+	 * Returns the number of nanoseconds elapsed since this ticker's fixed point of
+	 * reference.
+	 */
+	public abstract long read();
 
-  /** A ticker that reads the current time using {@link System#nanoTime}. */
-  public static Ticker systemTicker() {
-    return SYSTEM_TICKER;
-  }
+	/** A ticker that reads the current time using {@link System#nanoTime}. */
+	public static Ticker systemTicker() {
+		return SYSTEM_TICKER;
+	}
 
-  private static final Ticker SYSTEM_TICKER =
-      new Ticker() {
-        @Override
-        public long read() {
-          return Platform.systemNanoTime();
-        }
-      };
+	private static final Ticker SYSTEM_TICKER = new Ticker() {
+		@Override
+		public long read() {
+			return Platform.systemNanoTime();
+		}
+	};
 }

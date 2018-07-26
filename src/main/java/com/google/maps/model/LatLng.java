@@ -23,49 +23,54 @@ import java.util.Objects;
 /** A place on Earth, represented by a latitude/longitude pair. */
 public class LatLng implements UrlValue, Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /** The latitude of this location. */
-  public double lat;
+	/** The latitude of this location. */
+	public double lat;
 
-  /** The longitude of this location. */
-  public double lng;
+	/** The longitude of this location. */
+	public double lng;
 
-  /**
-   * Constructs a location with a latitude/longitude pair.
-   *
-   * @param lat The latitude of this location.
-   * @param lng The longitude of this location.
-   */
-  public LatLng(double lat, double lng) {
-    this.lat = lat;
-    this.lng = lng;
-  }
+	/**
+	 * Constructs a location with a latitude/longitude pair.
+	 *
+	 * @param lat
+	 *            The latitude of this location.
+	 * @param lng
+	 *            The longitude of this location.
+	 */
+	public LatLng(double lat, double lng) {
+		this.lat = lat;
+		this.lng = lng;
+	}
 
-  /** Serialisation constructor. */
-  public LatLng() {}
+	/** Serialisation constructor. */
+	public LatLng() {
+	}
 
-  @Override
-  public String toString() {
-    return toUrlValue();
-  }
+	@Override
+	public String toString() {
+		return toUrlValue();
+	}
 
-  @Override
-  public String toUrlValue() {
-    // Enforce Locale to English for double to string conversion
-    return String.format(Locale.ENGLISH, "%.8f,%.8f", lat, lng);
-  }
+	@Override
+	public String toUrlValue() {
+		// Enforce Locale to English for double to string conversion
+		return String.format(Locale.ENGLISH, "%.8f,%.8f", lat, lng);
+	}
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    LatLng latLng = (LatLng) o;
-    return Double.compare(latLng.lat, lat) == 0 && Double.compare(latLng.lng, lng) == 0;
-  }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		LatLng latLng = (LatLng) o;
+		return Double.compare(latLng.lat, lat) == 0 && Double.compare(latLng.lng, lng) == 0;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(lat, lng);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(lat, lng);
+	}
 }

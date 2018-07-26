@@ -17,36 +17,35 @@ package com.google.maps.model;
 
 import com.google.maps.internal.StringJoin;
 
-/** Used by Places API to restrict search results to those within a given price range. */
+/**
+ * Used by Places API to restrict search results to those within a given price
+ * range.
+ */
 public enum PriceLevel implements StringJoin.UrlValue {
-  FREE("0"),
-  INEXPENSIVE("1"),
-  MODERATE("2"),
-  EXPENSIVE("3"),
-  VERY_EXPENSIVE("4"),
+	FREE("0"), INEXPENSIVE("1"), MODERATE("2"), EXPENSIVE("3"), VERY_EXPENSIVE("4"),
 
-  /**
-   * Indicates an unknown price level type returned by the server. The Java Client for Google Maps
-   * Services should be updated to support the new value.
-   */
-  UNKNOWN("Unknown");
+	/**
+	 * Indicates an unknown price level type returned by the server. The Java Client
+	 * for Google Maps Services should be updated to support the new value.
+	 */
+	UNKNOWN("Unknown");
 
-  private final String priceLevel;
+	private final String priceLevel;
 
-  PriceLevel(final String priceLevel) {
-    this.priceLevel = priceLevel;
-  }
+	PriceLevel(final String priceLevel) {
+		this.priceLevel = priceLevel;
+	}
 
-  @Override
-  public String toString() {
-    return priceLevel;
-  }
+	@Override
+	public String toString() {
+		return priceLevel;
+	}
 
-  @Override
-  public String toUrlValue() {
-    if (this == UNKNOWN) {
-      throw new UnsupportedOperationException("Shouldn't use PriceLevel.UNKNOWN in a request.");
-    }
-    return priceLevel;
-  }
+	@Override
+	public String toUrlValue() {
+		if (this == UNKNOWN) {
+			throw new UnsupportedOperationException("Shouldn't use PriceLevel.UNKNOWN in a request.");
+		}
+		return priceLevel;
+	}
 }

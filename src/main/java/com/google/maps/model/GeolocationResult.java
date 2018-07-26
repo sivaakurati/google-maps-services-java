@@ -20,24 +20,27 @@ import java.io.Serializable;
 /**
  * A Geolocation API result.
  *
- * <p>A successful geolocation request will return a result defining a location and radius.
+ * <p>
+ * A successful geolocation request will return a result defining a location and
+ * radius.
  *
- * <p>Please see <a
- * href="https://developers.google.com/maps/documentation/geolocation/intro#responses">Geolocation
+ * <p>
+ * Please see <a href=
+ * "https://developers.google.com/maps/documentation/geolocation/intro#responses">Geolocation
  * responses</a> for more detail.
  */
 public class GeolocationResult implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-  /** The user’s estimated latitude and longitude. */
-  public LatLng location;
-  /**
-   * The accuracy of the estimated location, in meters. This represents the radius of a circle
-   * around the returned {@code location}.
-   */
-  public double accuracy;
+	private static final long serialVersionUID = 1L;
+	/** The user’s estimated latitude and longitude. */
+	public LatLng location;
+	/**
+	 * The accuracy of the estimated location, in meters. This represents the radius
+	 * of a circle around the returned {@code location}.
+	 */
+	public double accuracy;
 
-  public String toString() {
-    return String.format("%s, accuracy=%s m", location, accuracy);
-  }
+	public String toString() {
+		return String.format("%s, accuracy=%s m", location, accuracy);
+	}
 }

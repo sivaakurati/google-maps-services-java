@@ -32,79 +32,71 @@ import org.slf4j.LoggerFactory;
 @Category(MediumTests.class)
 public class RateLimitExecutorServiceTest {
 
-  private static final Logger LOG =
-      LoggerFactory.getLogger(RateLimitExecutorServiceTest.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(RateLimitExecutorServiceTest.class.getName());
 
-  @Test
-  public void testRateLimitDoesNotExceedSuppliedQps() throws Exception {
-    int qps = 10;
-    RateLimitExecutorService service = new RateLimitExecutorService();
-    service.setQueriesPerSecond(qps);
-    final ConcurrentHashMap<Integer, Integer> executedTimestamps = new ConcurrentHashMap<>();
+	@Test
+	public void testRateLimitDoesNotExceedSuppliedQps() throws Exception {
+		int qps = 10;
+		RateLimitExecutorService service = new RateLimitExecutorService();
+		service.setQueriesPerSecond(qps);
+		final ConcurrentHashMap<Integer, Integer> executedTimestamps = new ConcurrentHashMap<>();
 
-    for (int i = 0; i < 100; i++) {
-      Runnable emptyTask =
-          new Runnable() {
-            @Override
-            public void run() {
-              int nearestSecond = (int) (new Date().getTime() / 1000);
-              if (executedTimestamps.containsKey(nearestSecond)) {
-                executedTimestamps.put(nearestSecond, executedTimestamps.get(nearestSecond) + 1);
-              } else {
-                executedTimestamps.put(nearestSecond, 1);
-              }
-            }
-          };
-      service.execute(emptyTask);
-    }
+		for (int i = 0; i < 100; i++) {
+			Runnable emptyTask = new Runnable() {
+				@Override
+				public void run() {
+					int nearestSecond = (int) (new Date().getTime() / 1000);
+					if (executedTimestamps.containsKey(nearestSecond)) {
+						executedTimestamps.put(nearestSecond, executedTimestamps.get(nearestSecond) + 1);
+					} else {
+						executedTimestamps.put(nearestSecond, 1);
+					}
+				}
+			};
+			service.execute(emptyTask);
+		}
 
-    // Sleep until finished, or 20s expires (to prevent waiting forever)
-    long sleepTime = 0;
-    while (sleepTime < 20000 && countTotalRequests(executedTimestamps) < 100) {
-      long sleepFor = TimeUnit.SECONDS.toMillis(1);
-      sleepTime += sleepFor;
-      Thread.sleep(sleepFor);
-    }
+		// Sleep until finished, or 20s expires (to prevent waiting forever)
+		long sleepTime = 0;
+		while (sleepTime < 20000 && countTotalRequests(executedTimestamps) < 100) {
+			long sleepFor = TimeUnit.SECONDS.toMillis(1);
+			sleepTime += sleepFor;
+			Thread.sleep(sleepFor);
+		}
 
-    // Check that we executed at the correct rate
-    for (Integer timestamp : executedTimestamps.keySet()) {
-      Integer actualQps = executedTimestamps.get(timestamp);
-      // Logging QPS here to detect if a previous iteration had qps-1 and this is qps+1.
-      LOG.info(
-          String.format(
-              "Timestamp(%d) logged %d queries (target of %d qps)", timestamp, actualQps, qps));
-      assertTrue(
-          String.format("Expected <= %d queries in a second, got %d.", qps, actualQps),
-          actualQps <= qps);
-    }
-    // Check that we executed every request
-    // TODO(brettmorgan): figure out where we are losing requests
-    // assertEquals(100, countTotalRequests(executedTimestamps));
+		// Check that we executed at the correct rate
+		for (Integer timestamp : executedTimestamps.keySet()) {
+			Integer actualQps = executedTimestamps.get(timestamp);
+			// Logging QPS here to detect if a previous iteration had qps-1 and this is
+			// qps+1.
+			LOG.info(String.format("Timestamp(%d) logged %d queries (target of %d qps)", timestamp, actualQps, qps));
+			assertTrue(String.format("Expected <= %d queries in a second, got %d.", qps, actualQps), actualQps <= qps);
+		}
+		// Check that we executed every request
+		// TODO(brettmorgan): figure out where we are losing requests
+		// assertEquals(100, countTotalRequests(executedTimestamps));
 
-    service.shutdown();
-  }
+		service.shutdown();
+	}
 
-  private static int countTotalRequests(AbstractMap<?, Integer> hashMap) {
-    int counter = 0;
-    for (Integer value : hashMap.values()) {
-      counter += value;
-    }
-    return counter;
-  }
+	private static int countTotalRequests(AbstractMap<?, Integer> hashMap) {
+		int counter = 0;
+		for (Integer value : hashMap.values()) {
+			counter += value;
+		}
+		return counter;
+	}
 
-  @Test
-  public void testDelayThreadIsStoppedAfterShutdownIsCalled() throws InterruptedException {
-    RateLimitExecutorService service = new RateLimitExecutorService();
-    final Thread delayThread = service.delayThread;
-    assertNotNull(
-        "Delay thread should be created in constructor of RateLimitExecutorService", delayThread);
-    assertTrue(
-        "Delay thread should start in constructor of RateLimitExecutorService",
-        delayThread.isAlive());
-    // this is needed to make sure that delay thread has reached queue.take()
-    delayThread.join(10);
-    service.shutdown();
-    delayThread.join(10);
-    assertFalse(delayThread.isAlive());
-  }
+	@Test
+	public void testDelayThreadIsStoppedAfterShutdownIsCalled() throws InterruptedException {
+		RateLimitExecutorService service = new RateLimitExecutorService();
+		final Thread delayThread = service.delayThread;
+		assertNotNull("Delay thread should be created in constructor of RateLimitExecutorService", delayThread);
+		assertTrue("Delay thread should start in constructor of RateLimitExecutorService", delayThread.isAlive());
+		// this is needed to make sure that delay thread has reached queue.take()
+		delayThread.join(10);
+		service.shutdown();
+		delayThread.join(10);
+		assertFalse(delayThread.isAlive());
+	}
 }

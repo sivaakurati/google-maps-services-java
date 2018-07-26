@@ -20,21 +20,22 @@ import java.io.Serializable;
 /**
  * The stop/station.
  *
- * <p>See <a
- * href="https://developers.google.com/maps/documentation/directions/intro#TransitDetails">Transit
+ * <p>
+ * See <a href=
+ * "https://developers.google.com/maps/documentation/directions/intro#TransitDetails">Transit
  * details</a> for more detail.
  */
 public class StopDetails implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /** The name of the transit station/stop. E.g. {@code "Union Square"}. */
-  public String name;
+	/** The name of the transit station/stop. E.g. {@code "Union Square"}. */
+	public String name;
 
-  /** The location of the transit station/stop. */
-  public LatLng location;
+	/** The location of the transit station/stop. */
+	public LatLng location;
 
-  public String toString() {
-    return String.format("%s (%s)", name, location);
-  }
+	public String toString() {
+		return String.format("%s (%s)", name, location);
+	}
 }

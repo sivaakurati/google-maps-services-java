@@ -20,17 +20,15 @@ import java.util.Locale;
 
 /** Specifies traffic prediction model when requesting future directions. */
 public enum TrafficModel implements UrlValue {
-  BEST_GUESS,
-  OPTIMISTIC,
-  PESSIMISTIC;
+	BEST_GUESS, OPTIMISTIC, PESSIMISTIC;
 
-  @Override
-  public String toString() {
-    return name().toLowerCase(Locale.ENGLISH);
-  }
+	@Override
+	public String toString() {
+		return name().toLowerCase(Locale.ENGLISH);
+	}
 
-  @Override
-  public String toUrlValue() {
-    return toString();
-  }
+	@Override
+	public String toUrlValue() {
+		return toString();
+	}
 }

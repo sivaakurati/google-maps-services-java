@@ -39,107 +39,97 @@ import org.slf4j.LoggerFactory;
  * @see com.google.maps.GeoApiContext.RequestHandler
  */
 public class GaeRequestHandler implements GeoApiContext.RequestHandler {
-  private static final Logger LOG = LoggerFactory.getLogger(GaeRequestHandler.class.getName());
-  private final URLFetchService client = URLFetchServiceFactory.getURLFetchService();
+	private static final Logger LOG = LoggerFactory.getLogger(GaeRequestHandler.class.getName());
+	private final URLFetchService client = URLFetchServiceFactory.getURLFetchService();
 
-  /* package */ GaeRequestHandler() {}
+	/* package */ GaeRequestHandler() {
+	}
 
-  @Override
-  public <T, R extends ApiResponse<T>> PendingResult<T> handle(
-      String hostName,
-      String url,
-      String userAgent,
-      Class<R> clazz,
-      FieldNamingPolicy fieldNamingPolicy,
-      long errorTimeout,
-      Integer maxRetries,
-      ExceptionsAllowedToRetry exceptionsAllowedToRetry) {
-    FetchOptions fetchOptions = FetchOptions.Builder.withDeadline(10);
-    HTTPRequest req;
-    try {
-      req = new HTTPRequest(new URL(hostName + url), HTTPMethod.POST, fetchOptions);
-    } catch (MalformedURLException e) {
-      LOG.error("Request: {}{}", hostName, url, e);
-      throw (new RuntimeException(e));
-    }
+	@Override
+	public <T, R extends ApiResponse<T>> PendingResult<T> handle(String hostName, String url, String userAgent,
+			Class<R> clazz, FieldNamingPolicy fieldNamingPolicy, long errorTimeout, Integer maxRetries,
+			ExceptionsAllowedToRetry exceptionsAllowedToRetry) {
+		FetchOptions fetchOptions = FetchOptions.Builder.withDeadline(10);
+		HTTPRequest req;
+		try {
+			req = new HTTPRequest(new URL(hostName + url), HTTPMethod.POST, fetchOptions);
+		} catch (MalformedURLException e) {
+			LOG.error("Request: {}{}", hostName, url, e);
+			throw (new RuntimeException(e));
+		}
 
-    return new GaePendingResult<>(
-        req, client, clazz, fieldNamingPolicy, errorTimeout, maxRetries, exceptionsAllowedToRetry);
-  }
+		return new GaePendingResult<>(req, client, clazz, fieldNamingPolicy, errorTimeout, maxRetries,
+				exceptionsAllowedToRetry);
+	}
 
-  @Override
-  public <T, R extends ApiResponse<T>> PendingResult<T> handlePost(
-      String hostName,
-      String url,
-      String payload,
-      String userAgent,
-      Class<R> clazz,
-      FieldNamingPolicy fieldNamingPolicy,
-      long errorTimeout,
-      Integer maxRetries,
-      ExceptionsAllowedToRetry exceptionsAllowedToRetry) {
-    FetchOptions fetchOptions = FetchOptions.Builder.withDeadline(10);
-    HTTPRequest req = null;
-    try {
-      req = new HTTPRequest(new URL(hostName + url), HTTPMethod.POST, fetchOptions);
-      req.setHeader(new HTTPHeader("Content-Type", "application/json; charset=utf-8"));
-      req.setPayload(payload.getBytes());
-    } catch (MalformedURLException e) {
-      LOG.error("Request: {}{}", hostName, url, e);
-      throw (new RuntimeException(e));
-    }
+	@Override
+	public <T, R extends ApiResponse<T>> PendingResult<T> handlePost(String hostName, String url, String payload,
+			String userAgent, Class<R> clazz, FieldNamingPolicy fieldNamingPolicy, long errorTimeout,
+			Integer maxRetries, ExceptionsAllowedToRetry exceptionsAllowedToRetry) {
+		FetchOptions fetchOptions = FetchOptions.Builder.withDeadline(10);
+		HTTPRequest req = null;
+		try {
+			req = new HTTPRequest(new URL(hostName + url), HTTPMethod.POST, fetchOptions);
+			req.setHeader(new HTTPHeader("Content-Type", "application/json; charset=utf-8"));
+			req.setPayload(payload.getBytes());
+		} catch (MalformedURLException e) {
+			LOG.error("Request: {}{}", hostName, url, e);
+			throw (new RuntimeException(e));
+		}
 
-    return new GaePendingResult<>(
-        req, client, clazz, fieldNamingPolicy, errorTimeout, maxRetries, exceptionsAllowedToRetry);
-  }
+		return new GaePendingResult<>(req, client, clazz, fieldNamingPolicy, errorTimeout, maxRetries,
+				exceptionsAllowedToRetry);
+	}
 
-  @Override
-  public void shutdown() {
-    // do nothing
-  }
+	@Override
+	public void shutdown() {
+		// do nothing
+	}
 
-  /** Builder strategy for constructing {@code GaeRequestHandler}. */
-  public static class Builder implements GeoApiContext.RequestHandler.Builder {
+	/** Builder strategy for constructing {@code GaeRequestHandler}. */
+	public static class Builder implements GeoApiContext.RequestHandler.Builder {
 
-    @Override
-    public Builder connectTimeout(long timeout, TimeUnit unit) {
-      // TODO: Investigate if GAE URL Fetch Service supports setting connection timeout
-      throw new RuntimeException("connectTimeout not implemented for Google App Engine");
-    }
+		@Override
+		public Builder connectTimeout(long timeout, TimeUnit unit) {
+			// TODO: Investigate if GAE URL Fetch Service supports setting connection
+			// timeout
+			throw new RuntimeException("connectTimeout not implemented for Google App Engine");
+		}
 
-    @Override
-    public Builder readTimeout(long timeout, TimeUnit unit) {
-      // TODO: Investigate if GAE URL Fetch Service supports setting read timeout
-      throw new RuntimeException("readTimeout not implemented for Google App Engine");
-    }
+		@Override
+		public Builder readTimeout(long timeout, TimeUnit unit) {
+			// TODO: Investigate if GAE URL Fetch Service supports setting read timeout
+			throw new RuntimeException("readTimeout not implemented for Google App Engine");
+		}
 
-    @Override
-    public Builder writeTimeout(long timeout, TimeUnit unit) {
-      // TODO: Investigate if GAE URL Fetch Service supports setting write timeout
-      throw new RuntimeException("writeTimeout not implemented for Google App Engine");
-    }
+		@Override
+		public Builder writeTimeout(long timeout, TimeUnit unit) {
+			// TODO: Investigate if GAE URL Fetch Service supports setting write timeout
+			throw new RuntimeException("writeTimeout not implemented for Google App Engine");
+		}
 
-    @Override
-    public Builder queriesPerSecond(int maxQps) {
-      // TODO: Investigate if GAE URL Fetch Service supports setting qps
-      throw new RuntimeException("queriesPerSecond not implemented for Google App Engine");
-    }
+		@Override
+		public Builder queriesPerSecond(int maxQps) {
+			// TODO: Investigate if GAE URL Fetch Service supports setting qps
+			throw new RuntimeException("queriesPerSecond not implemented for Google App Engine");
+		}
 
-    @Override
-    public Builder proxy(Proxy proxy) {
-      // TODO: Investigate if GAE URL Fetch Service supports setting proxy
-      throw new RuntimeException("setProxy not implemented for Google App Engine");
-    }
+		@Override
+		public Builder proxy(Proxy proxy) {
+			// TODO: Investigate if GAE URL Fetch Service supports setting proxy
+			throw new RuntimeException("setProxy not implemented for Google App Engine");
+		}
 
-    @Override
-    public Builder proxyAuthentication(String proxyUserName, String proxyUserPassword) {
-      // TODO: Investigate if GAE URL Fetch Service supports setting proxy authentication
-      throw new RuntimeException("setProxyAuthentication not implemented for Google App Engine");
-    }
+		@Override
+		public Builder proxyAuthentication(String proxyUserName, String proxyUserPassword) {
+			// TODO: Investigate if GAE URL Fetch Service supports setting proxy
+			// authentication
+			throw new RuntimeException("setProxyAuthentication not implemented for Google App Engine");
+		}
 
-    @Override
-    public RequestHandler build() {
-      return new GaeRequestHandler();
-    }
-  }
+		@Override
+		public RequestHandler build() {
+			return new GaeRequestHandler();
+		}
+	}
 }

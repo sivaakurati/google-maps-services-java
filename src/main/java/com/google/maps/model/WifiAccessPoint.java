@@ -20,103 +20,104 @@ import java.io.Serializable;
 /**
  * A WiFi access point.
  *
- * <p>The request body's {@code wifiAccessPoints} array must contain two or more WiFi access point
- * objects. {@code macAddress} is required; all other fields are optional.
+ * <p>
+ * The request body's {@code wifiAccessPoints} array must contain two or more
+ * WiFi access point objects. {@code macAddress} is required; all other fields
+ * are optional.
  *
- * <p>Please see <a
- * href="https://developers.google.com/maps/documentation/geolocation/intro#wifi_access_point_object">
+ * <p>
+ * Please see <a href=
+ * "https://developers.google.com/maps/documentation/geolocation/intro#wifi_access_point_object">
  * WiFi Access Point Objects</a> for more detail.
  */
 public class WifiAccessPoint implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  public WifiAccessPoint() {}
+	public WifiAccessPoint() {
+	}
 
-  // constructor only used by the builder class below
-  private WifiAccessPoint(
-      String _macAddress,
-      Integer _signalStrength,
-      Integer _age,
-      Integer _channel,
-      Integer _signalToNoiseRatio) {
-    macAddress = _macAddress;
-    signalStrength = _signalStrength;
-    age = _age;
-    channel = _channel;
-    signalToNoiseRatio = _signalToNoiseRatio;
-  }
-  /**
-   * The MAC address of the WiFi node (required). Separators must be {@code :} (colon) and hex
-   * digits must use uppercase.
-   */
-  // TODO: add validation and test cases for malformed MAC Asdresses
-  public String macAddress;
-  /** The current signal strength measured in dBm. */
-  public Integer signalStrength = null;
-  /** The number of milliseconds since this access point was detected. */
-  public Integer age = null;
-  /** The channel over which the client is communicating with the access point. */
-  public Integer channel = null;
-  /** The current signal to noise ratio measured in dB. */
-  public Integer signalToNoiseRatio = null;
+	// constructor only used by the builder class below
+	private WifiAccessPoint(String _macAddress, Integer _signalStrength, Integer _age, Integer _channel,
+			Integer _signalToNoiseRatio) {
+		macAddress = _macAddress;
+		signalStrength = _signalStrength;
+		age = _age;
+		channel = _channel;
+		signalToNoiseRatio = _signalToNoiseRatio;
+	}
 
-  public String toString() {
-    StringBuilder sb = new StringBuilder("[WifiAccessPoint:");
-    if (macAddress != null) {
-      sb.append(" macAddress=").append(macAddress);
-    }
-    if (signalStrength != null) {
-      sb.append(" signalStrength=").append(signalStrength);
-    }
-    if (age != null) {
-      sb.append(" age=").append(age);
-    }
-    if (channel != null) {
-      sb.append(" channel=").append(channel);
-    }
-    if (signalToNoiseRatio != null) {
-      sb.append(" signalToNoiseRatio=").append(signalToNoiseRatio);
-    }
-    sb.append("]");
-    return sb.toString();
-  }
+	/**
+	 * The MAC address of the WiFi node (required). Separators must be {@code :}
+	 * (colon) and hex digits must use uppercase.
+	 */
+	// TODO: add validation and test cases for malformed MAC Asdresses
+	public String macAddress;
+	/** The current signal strength measured in dBm. */
+	public Integer signalStrength = null;
+	/** The number of milliseconds since this access point was detected. */
+	public Integer age = null;
+	/** The channel over which the client is communicating with the access point. */
+	public Integer channel = null;
+	/** The current signal to noise ratio measured in dB. */
+	public Integer signalToNoiseRatio = null;
 
-  public static class WifiAccessPointBuilder {
-    private String _macAddress = null;
-    private Integer _signalStrength = null;
-    private Integer _age = null;
-    private Integer _channel = null;
-    private Integer _signalToNoiseRatio = null;
+	public String toString() {
+		StringBuilder sb = new StringBuilder("[WifiAccessPoint:");
+		if (macAddress != null) {
+			sb.append(" macAddress=").append(macAddress);
+		}
+		if (signalStrength != null) {
+			sb.append(" signalStrength=").append(signalStrength);
+		}
+		if (age != null) {
+			sb.append(" age=").append(age);
+		}
+		if (channel != null) {
+			sb.append(" channel=").append(channel);
+		}
+		if (signalToNoiseRatio != null) {
+			sb.append(" signalToNoiseRatio=").append(signalToNoiseRatio);
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 
-    // create the actual wifi access point
-    public WifiAccessPoint createWifiAccessPoint() {
-      return new WifiAccessPoint(_macAddress, _signalStrength, _age, _channel, _signalToNoiseRatio);
-    }
+	public static class WifiAccessPointBuilder {
+		private String _macAddress = null;
+		private Integer _signalStrength = null;
+		private Integer _age = null;
+		private Integer _channel = null;
+		private Integer _signalToNoiseRatio = null;
 
-    public WifiAccessPointBuilder MacAddress(String newMacAddress) {
-      this._macAddress = newMacAddress;
-      return this;
-    }
+		// create the actual wifi access point
+		public WifiAccessPoint createWifiAccessPoint() {
+			return new WifiAccessPoint(_macAddress, _signalStrength, _age, _channel, _signalToNoiseRatio);
+		}
 
-    public WifiAccessPointBuilder SignalStrength(int newSignalStrength) {
-      this._signalStrength = newSignalStrength;
-      return this;
-    }
+		public WifiAccessPointBuilder MacAddress(String newMacAddress) {
+			this._macAddress = newMacAddress;
+			return this;
+		}
 
-    public WifiAccessPointBuilder Age(int newAge) {
-      this._age = newAge;
-      return this;
-    }
+		public WifiAccessPointBuilder SignalStrength(int newSignalStrength) {
+			this._signalStrength = newSignalStrength;
+			return this;
+		}
 
-    public WifiAccessPointBuilder Channel(int newChannel) {
-      this._channel = newChannel;
-      return this;
-    }
+		public WifiAccessPointBuilder Age(int newAge) {
+			this._age = newAge;
+			return this;
+		}
 
-    public WifiAccessPointBuilder SignalToNoiseRatio(int newSignalToNoiseRatio) {
-      this._signalToNoiseRatio = newSignalToNoiseRatio;
-      return this;
-    }
-  }
+		public WifiAccessPointBuilder Channel(int newChannel) {
+			this._channel = newChannel;
+			return this;
+		}
+
+		public WifiAccessPointBuilder SignalToNoiseRatio(int newSignalToNoiseRatio) {
+			this._signalToNoiseRatio = newSignalToNoiseRatio;
+			return this;
+		}
+	}
 }

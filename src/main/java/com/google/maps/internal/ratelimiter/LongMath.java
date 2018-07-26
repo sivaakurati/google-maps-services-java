@@ -31,24 +31,29 @@ package com.google.maps.internal.ratelimiter;
 /**
  * A class for arithmetic on values of type {@code long}.
  *
- * <p>This is a minimal port of Google Guava's com.google.common.math.LongMath, just sufficient to
- * implement the ratelimiter classes.
+ * <p>
+ * This is a minimal port of Google Guava's com.google.common.math.LongMath,
+ * just sufficient to implement the ratelimiter classes.
  */
 public final class LongMath {
-  private LongMath() {}
+	private LongMath() {
+	}
 
-  /**
-   * Returns the sum of {@code a} and {@code b} unless it would overflow or underflow in which case
-   * {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned, respectively.
-   */
-  public static long saturatedAdd(long a, long b) {
-    long naiveSum = a + b;
-    if ((a ^ b) < 0 | (a ^ naiveSum) >= 0) {
-      // If a and b have different signs or a has the same sign as the result then there was no
-      // overflow, return.
-      return naiveSum;
-    }
-    // we did over/under flow, if the sign is negative we should return MAX otherwise MIN
-    return Long.MAX_VALUE + ((naiveSum >>> (Long.SIZE - 1)) ^ 1);
-  }
+	/**
+	 * Returns the sum of {@code a} and {@code b} unless it would overflow or
+	 * underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is
+	 * returned, respectively.
+	 */
+	public static long saturatedAdd(long a, long b) {
+		long naiveSum = a + b;
+		if ((a ^ b) < 0 | (a ^ naiveSum) >= 0) {
+			// If a and b have different signs or a has the same sign as the result then
+			// there was no
+			// overflow, return.
+			return naiveSum;
+		}
+		// we did over/under flow, if the sign is negative we should return MAX
+		// otherwise MIN
+		return Long.MAX_VALUE + ((naiveSum >>> (Long.SIZE - 1)) ^ 1);
+	}
 }

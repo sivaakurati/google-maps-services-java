@@ -16,255 +16,265 @@
 package com.google.maps.model;
 
 /**
- * The Address Component types. Please see <a
- * href="https://developers.google.com/maps/documentation/geocoding/intro#Types">Address Types and
- * Address Component Types</a> for more detail.
+ * The Address Component types. Please see <a href=
+ * "https://developers.google.com/maps/documentation/geocoding/intro#Types">Address
+ * Types and Address Component Types</a> for more detail.
  */
 public enum AddressComponentType {
 
-  /** A precise street address. */
-  STREET_ADDRESS("street_address"),
-
-  /** A named route (such as "US 101"). */
-  ROUTE("route"),
-
-  /** A major intersection, usually of two major roads. */
-  INTERSECTION("intersection"),
-
-  /** A continent. */
-  CONTINENT("continent"),
-
-  /** A political entity. Usually, this type indicates a polygon of some civil administration. */
-  POLITICAL("political"),
-
-  /** A national political entity, typically the highest order type returned by the Geocoder. */
-  COUNTRY("country"),
-
-  /**
-   * A first-order civil entity below the country level. Within the United States, these
-   * administrative levels are states. Not all nations exhibit these administrative levels.
-   */
-  ADMINISTRATIVE_AREA_LEVEL_1("administrative_area_level_1"),
-
-  /**
-   * A second-order civil entity below the country level. Within the United States, these
-   * administrative levels are counties. Not all nations exhibit these administrative levels.
-   */
-  ADMINISTRATIVE_AREA_LEVEL_2("administrative_area_level_2"),
-
-  /**
-   * A third-order civil entity below the country level. This type indicates a minor civil division.
-   * Not all nations exhibit these administrative levels.
-   */
-  ADMINISTRATIVE_AREA_LEVEL_3("administrative_area_level_3"),
-
-  /**
-   * A fourth-order civil entity below the country level. This type indicates a minor civil
-   * division. Not all nations exhibit these administrative levels.
-   */
-  ADMINISTRATIVE_AREA_LEVEL_4("administrative_area_level_4"),
-
-  /**
-   * A fifth-order civil entity below the country level. This type indicates a minor civil division.
-   * Not all nations exhibit these administrative levels.
-   */
-  ADMINISTRATIVE_AREA_LEVEL_5("administrative_area_level_5"),
+	/** A precise street address. */
+	STREET_ADDRESS("street_address"),
+
+	/** A named route (such as "US 101"). */
+	ROUTE("route"),
+
+	/** A major intersection, usually of two major roads. */
+	INTERSECTION("intersection"),
+
+	/** A continent. */
+	CONTINENT("continent"),
+
+	/**
+	 * A political entity. Usually, this type indicates a polygon of some civil
+	 * administration.
+	 */
+	POLITICAL("political"),
+
+	/**
+	 * A national political entity, typically the highest order type returned by the
+	 * Geocoder.
+	 */
+	COUNTRY("country"),
+
+	/**
+	 * A first-order civil entity below the country level. Within the United States,
+	 * these administrative levels are states. Not all nations exhibit these
+	 * administrative levels.
+	 */
+	ADMINISTRATIVE_AREA_LEVEL_1("administrative_area_level_1"),
+
+	/**
+	 * A second-order civil entity below the country level. Within the United
+	 * States, these administrative levels are counties. Not all nations exhibit
+	 * these administrative levels.
+	 */
+	ADMINISTRATIVE_AREA_LEVEL_2("administrative_area_level_2"),
+
+	/**
+	 * A third-order civil entity below the country level. This type indicates a
+	 * minor civil division. Not all nations exhibit these administrative levels.
+	 */
+	ADMINISTRATIVE_AREA_LEVEL_3("administrative_area_level_3"),
+
+	/**
+	 * A fourth-order civil entity below the country level. This type indicates a
+	 * minor civil division. Not all nations exhibit these administrative levels.
+	 */
+	ADMINISTRATIVE_AREA_LEVEL_4("administrative_area_level_4"),
+
+	/**
+	 * A fifth-order civil entity below the country level. This type indicates a
+	 * minor civil division. Not all nations exhibit these administrative levels.
+	 */
+	ADMINISTRATIVE_AREA_LEVEL_5("administrative_area_level_5"),
+
+	/** A commonly-used alternative name for the entity. */
+	COLLOQUIAL_AREA("colloquial_area"),
+
+	/** An incorporated city or town political entity. */
+	LOCALITY("locality"),
+
+	/**
+	 * A specific type of Japanese locality, used to facilitate distinction between
+	 * multiple locality components within a Japanese address.
+	 */
+	WARD("ward"),
+
+	/**
+	 * A first-order civil entity below a locality. For some locations may receive
+	 * one of the additional types: sublocality_level_1 to sublocality_level_5. Each
+	 * sublocality level is a civil entity. Larger numbers indicate a smaller
+	 * geographic area.
+	 */
+	SUBLOCALITY("sublocality"), SUBLOCALITY_LEVEL_1("sublocality_level_1"), SUBLOCALITY_LEVEL_2(
+			"sublocality_level_2"), SUBLOCALITY_LEVEL_3("sublocality_level_3"), SUBLOCALITY_LEVEL_4(
+					"sublocality_level_4"), SUBLOCALITY_LEVEL_5("sublocality_level_5"),
+
+	/** A named neighborhood. */
+	NEIGHBORHOOD("neighborhood"),
+
+	/**
+	 * A named location, usually a building or collection of buildings with a common
+	 * name.
+	 */
+	PREMISE("premise"),
+
+	/**
+	 * A first-order entity below a named location, usually a singular building
+	 * within a collection of buildings with a common name.
+	 */
+	SUBPREMISE("subpremise"),
 
-  /** A commonly-used alternative name for the entity. */
-  COLLOQUIAL_AREA("colloquial_area"),
+	/** A postal code as used to address postal mail within the country. */
+	POSTAL_CODE("postal_code"),
 
-  /** An incorporated city or town political entity. */
-  LOCALITY("locality"),
+	/** A postal code prefix as used to address postal mail within the country. */
+	POSTAL_CODE_PREFIX("postal_code_prefix"),
 
-  /**
-   * A specific type of Japanese locality, used to facilitate distinction between multiple locality
-   * components within a Japanese address.
-   */
-  WARD("ward"),
+	/** A postal code suffix as used to address postal mail within the country. */
+	POSTAL_CODE_SUFFIX("postal_code_suffix"),
 
-  /**
-   * A first-order civil entity below a locality. For some locations may receive one of the
-   * additional types: sublocality_level_1 to sublocality_level_5. Each sublocality level is a civil
-   * entity. Larger numbers indicate a smaller geographic area.
-   */
-  SUBLOCALITY("sublocality"),
-  SUBLOCALITY_LEVEL_1("sublocality_level_1"),
-  SUBLOCALITY_LEVEL_2("sublocality_level_2"),
-  SUBLOCALITY_LEVEL_3("sublocality_level_3"),
-  SUBLOCALITY_LEVEL_4("sublocality_level_4"),
-  SUBLOCALITY_LEVEL_5("sublocality_level_5"),
+	/** A prominent natural feature. */
+	NATURAL_FEATURE("natural_feature"),
 
-  /** A named neighborhood. */
-  NEIGHBORHOOD("neighborhood"),
+	/** An airport. */
+	AIRPORT("airport"),
 
-  /** A named location, usually a building or collection of buildings with a common name. */
-  PREMISE("premise"),
+	/** A named park. */
+	PARK("park"),
 
-  /**
-   * A first-order entity below a named location, usually a singular building within a collection of
-   * buildings with a common name.
-   */
-  SUBPREMISE("subpremise"),
+	/**
+	 * A named point of interest. Typically, these "POI"s are prominent local
+	 * entities that don't easily fit in another category, such as "Empire State
+	 * Building" or "Statue of Liberty."
+	 */
+	POINT_OF_INTEREST("point_of_interest"),
 
-  /** A postal code as used to address postal mail within the country. */
-  POSTAL_CODE("postal_code"),
+	/** The floor of a building address. */
+	FLOOR("floor"),
 
-  /** A postal code prefix as used to address postal mail within the country. */
-  POSTAL_CODE_PREFIX("postal_code_prefix"),
+	/** Typically indicates a place that has not yet been categorized. */
+	ESTABLISHMENT("establishment"),
 
-  /** A postal code suffix as used to address postal mail within the country. */
-  POSTAL_CODE_SUFFIX("postal_code_suffix"),
+	/** A parking lot or parking structure. */
+	PARKING("parking"),
 
-  /** A prominent natural feature. */
-  NATURAL_FEATURE("natural_feature"),
+	/** A specific postal box. */
+	POST_BOX("post_box"),
 
-  /** An airport. */
-  AIRPORT("airport"),
+	/**
+	 * A grouping of geographic areas, such as locality and sublocality, used for
+	 * mailing addresses in some countries.
+	 */
+	POSTAL_TOWN("postal_town"),
 
-  /** A named park. */
-  PARK("park"),
+	/** The room of a building address. */
+	ROOM("room"),
 
-  /**
-   * A named point of interest. Typically, these "POI"s are prominent local entities that don't
-   * easily fit in another category, such as "Empire State Building" or "Statue of Liberty."
-   */
-  POINT_OF_INTEREST("point_of_interest"),
+	/** The precise street number of an address. */
+	STREET_NUMBER("street_number"),
 
-  /** The floor of a building address. */
-  FLOOR("floor"),
+	/** The location of a bus stop. */
+	BUS_STATION("bus_station"),
 
-  /** Typically indicates a place that has not yet been categorized. */
-  ESTABLISHMENT("establishment"),
+	/** The location of a train station. */
+	TRAIN_STATION("train_station"),
 
-  /** A parking lot or parking structure. */
-  PARKING("parking"),
+	/** The location of a subway station. */
+	SUBWAY_STATION("subway_station"),
 
-  /** A specific postal box. */
-  POST_BOX("post_box"),
+	/** The location of a transit station. */
+	TRANSIT_STATION("transit_station"),
 
-  /**
-   * A grouping of geographic areas, such as locality and sublocality, used for mailing addresses in
-   * some countries.
-   */
-  POSTAL_TOWN("postal_town"),
+	/** The location of a light rail station. */
+	LIGHT_RAIL_STATION("light_rail_station"),
 
-  /** The room of a building address. */
-  ROOM("room"),
+	/** A general contractor. */
+	GENERAL_CONTRACTOR("general_contractor"),
 
-  /** The precise street number of an address. */
-  STREET_NUMBER("street_number"),
+	/** A food service establishment. */
+	FOOD("food"),
 
-  /** The location of a bus stop. */
-  BUS_STATION("bus_station"),
+	/** A real-estate agency. */
+	REAL_ESTATE_AGENCY("real_estate_agency"),
 
-  /** The location of a train station. */
-  TRAIN_STATION("train_station"),
+	/** A car-rental establishment. */
+	CAR_RENTAL("car_rental"),
 
-  /** The location of a subway station. */
-  SUBWAY_STATION("subway_station"),
+	/** A travel agency. */
+	TRAVEL_AGENCY("travel_agency"),
 
-  /** The location of a transit station. */
-  TRANSIT_STATION("transit_station"),
+	/** An electronics store. */
+	ELECTRONICS_STORE("electronics_store"),
 
-  /** The location of a light rail station. */
-  LIGHT_RAIL_STATION("light_rail_station"),
+	/** A home goods store. */
+	HOME_GOODS_STORE("home_goods_store"),
 
-  /** A general contractor. */
-  GENERAL_CONTRACTOR("general_contractor"),
+	/** A school. */
+	SCHOOL("school"),
 
-  /** A food service establishment. */
-  FOOD("food"),
+	/** A store. */
+	STORE("store"),
 
-  /** A real-estate agency. */
-  REAL_ESTATE_AGENCY("real_estate_agency"),
+	/** A shopping mall. */
+	SHOPPING_MALL("shopping_mall"),
 
-  /** A car-rental establishment. */
-  CAR_RENTAL("car_rental"),
+	/** A lodging establishment. */
+	LODGING("lodging"),
 
-  /** A travel agency. */
-  TRAVEL_AGENCY("travel_agency"),
+	/** An art gallery. */
+	ART_GALLERY("art_gallery"),
 
-  /** An electronics store. */
-  ELECTRONICS_STORE("electronics_store"),
+	/** A lawyer. */
+	LAWYER("lawyer"),
 
-  /** A home goods store. */
-  HOME_GOODS_STORE("home_goods_store"),
+	/** A restaurant. */
+	RESTAURANT("restaurant"),
 
-  /** A school. */
-  SCHOOL("school"),
+	/** A bar. */
+	BAR("bar"),
 
-  /** A store. */
-  STORE("store"),
+	/** A take-away meal establishment. */
+	MEAL_TAKEAWAY("meal_takeaway"),
 
-  /** A shopping mall. */
-  SHOPPING_MALL("shopping_mall"),
+	/** A clothing store. */
+	CLOTHING_STORE("clothing_store"),
 
-  /** A lodging establishment. */
-  LODGING("lodging"),
+	/** A local government office. */
+	LOCAL_GOVERNMENT_OFFICE("local_government_office"),
 
-  /** An art gallery. */
-  ART_GALLERY("art_gallery"),
+	/** A finance establishment. */
+	FINANCE("finance"),
 
-  /** A lawyer. */
-  LAWYER("lawyer"),
+	/** A moving company. */
+	MOVING_COMPANY("moving_company"),
 
-  /** A restaurant. */
-  RESTAURANT("restaurant"),
+	/** A storage establishment. */
+	STORAGE("storage"),
 
-  /** A bar. */
-  BAR("bar"),
+	/** A cafe. */
+	CAFE("cafe"),
 
-  /** A take-away meal establishment. */
-  MEAL_TAKEAWAY("meal_takeaway"),
+	/** A car repair establishment. */
+	CAR_REPAIR("car_repair"),
 
-  /** A clothing store. */
-  CLOTHING_STORE("clothing_store"),
+	/** A health service provider. */
+	HEALTH("health"),
 
-  /** A local government office. */
-  LOCAL_GOVERNMENT_OFFICE("local_government_office"),
+	/** An insurance agency. */
+	INSURANCE_AGENCY("insurance_agency"),
 
-  /** A finance establishment. */
-  FINANCE("finance"),
+	/** A painter. */
+	PAINTER("painter"),
 
-  /** A moving company. */
-  MOVING_COMPANY("moving_company"),
+	/**
+	 * Indicates an unknown address component type returned by the server. The Java
+	 * Client for Google Maps Services should be updated to support the new value.
+	 */
+	UNKNOWN("unknown");
 
-  /** A storage establishment. */
-  STORAGE("storage"),
+	private final String addressComponentType;
 
-  /** A cafe. */
-  CAFE("cafe"),
+	AddressComponentType(final String addressComponentType) {
+		this.addressComponentType = addressComponentType;
+	}
 
-  /** A car repair establishment. */
-  CAR_REPAIR("car_repair"),
+	@Override
+	public String toString() {
+		return addressComponentType;
+	}
 
-  /** A health service provider. */
-  HEALTH("health"),
-
-  /** An insurance agency. */
-  INSURANCE_AGENCY("insurance_agency"),
-
-  /** A painter. */
-  PAINTER("painter"),
-
-  /**
-   * Indicates an unknown address component type returned by the server. The Java Client for Google
-   * Maps Services should be updated to support the new value.
-   */
-  UNKNOWN("unknown");
-
-  private final String addressComponentType;
-
-  AddressComponentType(final String addressComponentType) {
-    this.addressComponentType = addressComponentType;
-  }
-
-  @Override
-  public String toString() {
-    return addressComponentType;
-  }
-
-  public String toCanonicalLiteral() {
-    return toString();
-  }
+	public String toCanonicalLiteral() {
+		return toString();
+	}
 }

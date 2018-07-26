@@ -16,15 +16,17 @@
 package com.google.maps.model;
 
 /**
- * The status result for a single {@link com.google.maps.model.GeocodedWaypoint}.
+ * The status result for a single
+ * {@link com.google.maps.model.GeocodedWaypoint}.
  *
- * @see <a href="https://developers.google.com/maps/documentation/directions/intro#StatusCodes">
- *     Documentation on status codes</a>
+ * @see <a href=
+ *      "https://developers.google.com/maps/documentation/directions/intro#StatusCodes">
+ *      Documentation on status codes</a>
  */
 public enum GeocodedWaypointStatus {
-  /** Indicates the response contains a valid result. */
-  OK,
+	/** Indicates the response contains a valid result. */
+	OK,
 
-  /** Indicates no route could be found between the origin and destination. */
-  ZERO_RESULTS
+	/** Indicates no route could be found between the origin and destination. */
+	ZERO_RESULTS
 }

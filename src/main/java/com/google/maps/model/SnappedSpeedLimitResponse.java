@@ -20,23 +20,23 @@ import java.io.Serializable;
 /** A combined snap-to-roads and speed limit response. */
 public class SnappedSpeedLimitResponse implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /** Speed limit results. */
-  public SpeedLimit[] speedLimits;
+	/** Speed limit results. */
+	public SpeedLimit[] speedLimits;
 
-  /** Snap-to-road results. */
-  public SnappedPoint[] snappedPoints;
+	/** Snap-to-road results. */
+	public SnappedPoint[] snappedPoints;
 
-  public String toString() {
-    StringBuilder sb = new StringBuilder("[SnappedSpeedLimitResponse:");
-    if (speedLimits != null && speedLimits.length > 0) {
-      sb.append(" ").append(speedLimits.length).append(" speedLimits");
-    }
-    if (snappedPoints != null && snappedPoints.length > 0) {
-      sb.append(" ").append(snappedPoints.length).append(" speedLimits");
-    }
-    sb.append("]");
-    return sb.toString();
-  }
+	public String toString() {
+		StringBuilder sb = new StringBuilder("[SnappedSpeedLimitResponse:");
+		if (speedLimits != null && speedLimits.length > 0) {
+			sb.append(" ").append(speedLimits.length).append(" speedLimits");
+		}
+		if (snappedPoints != null && snappedPoints.length > 0) {
+			sb.append(" ").append(snappedPoints.length).append(" speedLimits");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 }

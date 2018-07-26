@@ -25,49 +25,52 @@ import java.io.IOException;
 /**
  * This class handles conversion from JSON to {@link Distance}.
  *
- * <p>Please see <a
- * href="https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/TypeAdapter.html">GSON
+ * <p>
+ * Please see <a href=
+ * "https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/TypeAdapter.html">GSON
  * Type Adapter</a> for more detail.
  */
 public class DistanceAdapter extends TypeAdapter<Distance> {
 
-  /**
-   * Read a distance object from a Directions API result and convert it to a {@link Distance}.
-   *
-   * <p>We are expecting to receive something akin to the following:
-   *
-   * <pre>
-   * {
-   *   "value": 207, "text": "0.1 mi"
-   * }
-   * </pre>
-   */
-  @Override
-  public Distance read(JsonReader reader) throws IOException {
-    if (reader.peek() == JsonToken.NULL) {
-      reader.nextNull();
-      return null;
-    }
+	/**
+	 * Read a distance object from a Directions API result and convert it to a
+	 * {@link Distance}.
+	 *
+	 * <p>
+	 * We are expecting to receive something akin to the following:
+	 *
+	 * <pre>
+	 * {
+	 *   "value": 207, "text": "0.1 mi"
+	 * }
+	 * </pre>
+	 */
+	@Override
+	public Distance read(JsonReader reader) throws IOException {
+		if (reader.peek() == JsonToken.NULL) {
+			reader.nextNull();
+			return null;
+		}
 
-    Distance distance = new Distance();
+		Distance distance = new Distance();
 
-    reader.beginObject();
-    while (reader.hasNext()) {
-      String name = reader.nextName();
-      if (name.equals("text")) {
-        distance.humanReadable = reader.nextString();
-      } else if (name.equals("value")) {
-        distance.inMeters = reader.nextLong();
-      }
-    }
-    reader.endObject();
+		reader.beginObject();
+		while (reader.hasNext()) {
+			String name = reader.nextName();
+			if (name.equals("text")) {
+				distance.humanReadable = reader.nextString();
+			} else if (name.equals("value")) {
+				distance.inMeters = reader.nextLong();
+			}
+		}
+		reader.endObject();
 
-    return distance;
-  }
+		return distance;
+	}
 
-  /** This method is not implemented. */
-  @Override
-  public void write(JsonWriter writer, Distance value) throws IOException {
-    throw new UnsupportedOperationException("Unimplemented method");
-  }
+	/** This method is not implemented. */
+	@Override
+	public void write(JsonWriter writer, Distance value) throws IOException {
+		throw new UnsupportedOperationException("Unimplemented method");
+	}
 }

@@ -20,30 +20,32 @@ import java.io.Serializable;
 /**
  * The vehicle used on a line.
  *
- * <p>See <a
- * href="https://developers.google.com/maps/documentation/directions/intro#TransitDetails">Transit
+ * <p>
+ * See <a href=
+ * "https://developers.google.com/maps/documentation/directions/intro#TransitDetails">Transit
  * details</a> for more detail.
  */
 public class Vehicle implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  /** The name of the vehicle on this line. E.g. {@code "Subway"}. */
-  public String name;
+	/** The name of the vehicle on this line. E.g. {@code "Subway"}. */
+	public String name;
 
-  /**
-   * The type of vehicle that runs on this line. See the {@link com.google.maps.model.VehicleType
-   * VehicleType} documentation for a complete list of supported values.
-   */
-  public VehicleType type;
+	/**
+	 * The type of vehicle that runs on this line. See the
+	 * {@link com.google.maps.model.VehicleType VehicleType} documentation for a
+	 * complete list of supported values.
+	 */
+	public VehicleType type;
 
-  /** The URL for an icon associated with this vehicle type. */
-  public String icon;
+	/** The URL for an icon associated with this vehicle type. */
+	public String icon;
 
-  /** The URL for an icon based on the local transport signage. */
-  public String localIcon;
+	/** The URL for an icon based on the local transport signage. */
+	public String localIcon;
 
-  public String toString() {
-    return String.format("%s (%s)", name, type);
-  }
+	public String toString() {
+		return String.format("%s (%s)", name, type);
+	}
 }

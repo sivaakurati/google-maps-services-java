@@ -18,29 +18,25 @@ package com.google.maps.model;
 import com.google.maps.internal.StringJoin;
 
 /**
- * Used by the Places API to restrict the autocomplete results to places matching the specified
- * type.
+ * Used by the Places API to restrict the autocomplete results to places
+ * matching the specified type.
  */
 public enum PlaceAutocompleteType implements StringJoin.UrlValue {
-  GEOCODE("geocode"),
-  ADDRESS("address"),
-  ESTABLISHMENT("establishment"),
-  REGIONS("(regions)"),
-  CITIES("(cities)");
+	GEOCODE("geocode"), ADDRESS("address"), ESTABLISHMENT("establishment"), REGIONS("(regions)"), CITIES("(cities)");
 
-  PlaceAutocompleteType(final String placeType) {
-    this.placeType = placeType;
-  }
+	PlaceAutocompleteType(final String placeType) {
+		this.placeType = placeType;
+	}
 
-  private String placeType;
+	private String placeType;
 
-  @Override
-  public String toUrlValue() {
-    return placeType;
-  }
+	@Override
+	public String toUrlValue() {
+		return placeType;
+	}
 
-  @Override
-  public String toString() {
-    return placeType;
-  }
+	@Override
+	public String toString() {
+		return placeType;
+	}
 }

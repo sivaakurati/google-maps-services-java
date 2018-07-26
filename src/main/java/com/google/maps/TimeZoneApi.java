@@ -23,62 +23,63 @@ import com.google.maps.model.LatLng;
 import java.util.TimeZone;
 
 /**
- * The Google Time Zone API provides a simple interface to request the time zone for a location on
- * the earth.
+ * The Google Time Zone API provides a simple interface to request the time zone
+ * for a location on the earth.
  *
- * <p>See the <a href="https://developers.google.com/maps/documentation/timezone/">Time Zone API
- * documentation</a>.
+ * <p>
+ * See the
+ * <a href="https://developers.google.com/maps/documentation/timezone/">Time
+ * Zone API documentation</a>.
  */
 public class TimeZoneApi {
-  private static final ApiConfig API_CONFIG =
-      new ApiConfig("/maps/api/timezone/json").fieldNamingPolicy(FieldNamingPolicy.IDENTITY);
+	private static final ApiConfig API_CONFIG = new ApiConfig("/maps/api/timezone/json")
+			.fieldNamingPolicy(FieldNamingPolicy.IDENTITY);
 
-  private TimeZoneApi() {}
+	private TimeZoneApi() {
+	}
 
-  /**
-   * Retrieves the {@link java.util.TimeZone} for the given location.
-   *
-   * @param context The {@link GeoApiContext} to make requests through.
-   * @param location The location for which to retrieve a time zone.
-   * @return Returns the time zone as a {@link PendingResult}.
-   */
-  public static PendingResult<TimeZone> getTimeZone(GeoApiContext context, LatLng location) {
-    return context.get(
-        API_CONFIG,
-        Response.class,
-        "location",
-        location.toString(),
-        // Java has its own lookup for time -> DST, so we really only need to fetch the TZ id.
-        // "timestamp" is, in effect, ignored.
-        "timestamp",
-        "0");
-  }
+	/**
+	 * Retrieves the {@link java.util.TimeZone} for the given location.
+	 *
+	 * @param context
+	 *            The {@link GeoApiContext} to make requests through.
+	 * @param location
+	 *            The location for which to retrieve a time zone.
+	 * @return Returns the time zone as a {@link PendingResult}.
+	 */
+	public static PendingResult<TimeZone> getTimeZone(GeoApiContext context, LatLng location) {
+		return context.get(API_CONFIG, Response.class, "location", location.toString(),
+				// Java has its own lookup for time -> DST, so we really only need to fetch the
+				// TZ id.
+				// "timestamp" is, in effect, ignored.
+				"timestamp", "0");
+	}
 
-  private static class Response implements ApiResponse<TimeZone> {
-    public String status;
-    public String errorMessage;
+	private static class Response implements ApiResponse<TimeZone> {
+		public String status;
+		public String errorMessage;
 
-    private String timeZoneId;
+		private String timeZoneId;
 
-    @Override
-    public boolean successful() {
-      return "OK".equals(status);
-    }
+		@Override
+		public boolean successful() {
+			return "OK".equals(status);
+		}
 
-    @Override
-    public TimeZone getResult() {
-      if (timeZoneId == null) {
-        return null;
-      }
-      return TimeZone.getTimeZone(timeZoneId);
-    }
+		@Override
+		public TimeZone getResult() {
+			if (timeZoneId == null) {
+				return null;
+			}
+			return TimeZone.getTimeZone(timeZoneId);
+		}
 
-    @Override
-    public ApiException getError() {
-      if (successful()) {
-        return null;
-      }
-      return ApiException.from(status, errorMessage);
-    }
-  }
+		@Override
+		public ApiException getError() {
+			if (successful()) {
+				return null;
+			}
+			return ApiException.from(status, errorMessage);
+		}
+	}
 }
